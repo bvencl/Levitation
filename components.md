@@ -21,3 +21,10 @@
 
 
 
+## FORRÁSOK
+
+- https://hu.wikipedia.org/wiki/Hall-effektus
+- https://www.instructables.com/Arduino-Air-Bonsai-Levitation/
+
+
+
