@@ -1,4 +1,5 @@
-class PID {
+class PID
+{
 private:
     double dt;
     double max;
@@ -10,10 +11,10 @@ private:
     double integral;
 
 public:
-    PID(double dt, double max, double min, double Kp, double Kd, double Ki) :
-        dt(dt), max(max), min(min), Kp(Kp), Kd(Kd), Ki(Ki), pre_error(0), integral(0) {}
+    PID(double dt, double max, double min, double Kp, double Kd, double Ki) : dt(dt), max(max), min(min), Kp(Kp), Kd(Kd), Ki(Ki), pre_error(0), integral(0) {}
 
-    double calculate(double setpoint, double pv) {
+    double calculate(double setpoint, double pv)
+    {
         // Calculate error
         double error = setpoint - pv;
 
@@ -43,3 +44,13 @@ public:
         return output;
     }
 };
+
+int main()
+{
+
+    PID asd();
+
+    int a;
+
+    return 0;
+}
