@@ -4,7 +4,7 @@
 
 std::ofstream file("plot.svg");
 
-const int width = 15000;
+const int width = 10000;
 const long double setpoint = 26.19231;
 class PID
 {
@@ -72,17 +72,17 @@ void inline finish_svg(long double x, long double y)
 void inline plot(long double y, int x)
 {
 
-    file << "<circle cx=\"" << ((double)x) / 2 + 40 << "\" cy=\"" << y << "\" r=\"0.25\" fill=\"red\" />\n";
+    file << "<circle cx=\"" << ((double)x) / 32 + 40 << "\" cy=\"" << y << "\" r=\"0.25\" fill=\"red\" />\n";
 }
 
 int main()
 {
 
-    long double min = -.5;
-    long double max = .5;
-    long double Kp = 1;
+    long double min = -5;
+    long double max = 5;
+    long double Kp = 0;
     long double Ki = 0.1;
-    long double Kd = 0.3;
+    long double Kd = 0.001;
     long double dt = 1;
 
     long double current_state = 0.0;
@@ -106,7 +106,7 @@ int main()
             plot(current_state, x);
             x++;
 
-            if ((current_state < (setpoint + EPS) && current_state > (setpoint - EPS)) || x > 30000)
+            if ((current_state < (setpoint + EPS) && current_state > (setpoint - EPS)) || x > 30000 * 16)
             {
                 not_close_enough = false;
             }
