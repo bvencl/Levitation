@@ -1,36 +1,39 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 std::ofstream file("plot.svg");
 
+const int width = 15000;
+const long double setpoint = 26.19231;
 class PID
 {
 private:
-    double min;
-    double max;
-    double prev_error;
-    double integral;
-    double Kp;
-    double Ki;
-    double Kd;
-    double dt;
+    long double min;
+    long double max;
+    long double prev_error;
+    long double integral;
+    long double Kp;
+    long double Ki;
+    long double Kd;
+    long double dt;
 
 public:
-    PID(double min, double max, double Kp, double Ki, double Kd, double dt) : dt(dt), max(max), min(min), Kp(Kp), Ki(Ki), Kd(Kd), integral(0), prev_error(0){};
+    PID(long double min, long double max, long double Kp, long double Ki, long double Kd, long double dt) : dt(dt), max(max), min(min), Kp(Kp), Ki(Ki), Kd(Kd), integral(0), prev_error(0){};
 
-    double calculate(double setpoint, double process_variable)
+    long double calculate(long double setpoint, long double current_state)
     {
-        double error = setpoint - process_variable; // Error számítás
+        long double error = setpoint - current_state; // Error számítás
 
-        double Op = Kp * error; // Proportional súlyozása
+        long double Op = Kp * error; // Proportional súlyozása
 
         integral += error * dt; // Integral rész számítása későbbre
 
-        double Oi = Ki * integral; // Integral rész súlyozása
+        long double Oi = Ki * integral; // Integral rész súlyozása
 
-        double Od = Kd * (error - prev_error) / dt; // Derivative rész számolása és súlyozása
+        long double Od = Kd * (error - prev_error) / dt; // Derivative rész számolása és súlyozása
 
-        double output = Od + Oi + Op; // Output a három tagból
+        long double output = Od + Oi + Op; // Output a három tagból
 
         // outout max és min között?
         if (output < min)
@@ -48,45 +51,46 @@ void inline make_svg()
 {
     if (file.is_open())
     {
-        file << "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"10000\" height=\"100\">\n\n";
-        file << "<line x1=\"20\" y1=\"50\" x2=\"10000\" y2=\"50\" style=\"stroke:black;stroke-width:2\" />\n";
-        file << "<line x1=\"20\" y1=\"0\" x2=\"20\" y2=\"100\" style=\"stroke:black;stroke-width:2\" />\n\n";
-        file << "<line x1=\"20\" y1=\"30\" x2=\"10000\" y2=\"30\" style=\"stroke:black;stroke-width:0.5\" />\n\n";
+        file << "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"" << width << "\" height=\"300\">\n\n";
+        file << "<line x1=\"40\" y1=\"0\" x2=\"" << width << "\" y2=\"0\" style=\"stroke:black;stroke-width:2\" />\n";
+        file << "<line x1=\"40\" y1=\"0\" x2=\"40\" y2=\"100\" style=\"stroke:black;stroke-width:2\" />\n\n";
+        file << "<line x1=\"40\" y1=\"" << std::setprecision(10) << setpoint << "\" x2=\"" << width << "\" y2=\"" << std::setprecision(10) << setpoint << "\" style=\"stroke:black;stroke-width:0.5\" />\n\n";
     }
     else
         throw(-1);
 }
 
-void inline finish_svg()
+void inline finish_svg(long double x, long double y)
 {
+    file << "<text x=\"5\" y=\"30\" font-size=\"5\" fill=\"white\">" << x << "</text>\n";
+    file << "<text x=\"5\" y=\"60\" font-size=\"5\" fill=\"white\">" << std::setprecision(10) << y << "</text>\n";
+    file << "<text x=\"5\" y=\"90\" font-size=\"5\" fill=\"white\">" << std::setprecision(10) << setpoint << "</text>\n";
     file << "\n</svg>";
     file.close();
 }
 
-void inline plot(double y, int x)
+void inline plot(long double y, int x)
 {
 
-    file << "<circle cx=\"" << x + 25 << "\" cy=\"" << (50 - y)  << "\" r=\"1\" fill=\"red\" />\n";
+    file << "<circle cx=\"" << ((double)x) / 2 + 40 << "\" cy=\"" << y << "\" r=\"0.25\" fill=\"red\" />\n";
 }
 
 int main()
 {
 
-    double min = -2;
-    double max = 2;
-    double Kp = .1;
-    double Ki = .14;
-    double Kd = .6;
-    double dt = 1;
-    
+    long double min = -.5;
+    long double max = .5;
+    long double Kp = 1;
+    long double Ki = 0.1;
+    long double Kd = 0.3;
+    long double dt = 1;
 
-    double setpoint = 20.677134;
-    double process_variable = 0.121241;
+    long double current_state = 0.0;
 
     PID pid(min, max, Kp, Ki, Kd, dt);
 
     bool not_close_enough = true;
-    double EPS = 0.000001;
+    long double EPS = 0.00000001;
 
     int x = 0;
 
@@ -97,19 +101,23 @@ int main()
         while (not_close_enough)
         {
 
-            process_variable += pid.calculate(setpoint, process_variable);
+            current_state += pid.calculate(setpoint, current_state);
 
-            plot(process_variable, x);
+            plot(current_state, x);
             x++;
 
-            if ((process_variable < (setpoint + EPS) && process_variable > (setpoint - EPS)) || x > 30000)
+            if ((current_state < (setpoint + EPS) && current_state > (setpoint - EPS)) || x > 30000)
+            {
                 not_close_enough = false;
+            }
 
-            if(x % 40 == 0)
-                x++, x--;
+            // if (x % 40 == 0)
+            // {
+            //     current_state += (static_cast<float>(rand() % 3) - 1.5);
+            // }
         }
 
-        finish_svg();
+        finish_svg(x, current_state);
     }
     catch (int fault)
     {
