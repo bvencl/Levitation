@@ -80,9 +80,9 @@ int main()
 
     long double min = -5;
     long double max = 5;
-    long double Kp = 3;
-    long double Ki = 1;
-    long double Kd = 2;
+    long double Kp = 0.0;
+    long double Ki = 0.5;
+    long double Kd = 0.5;
     long double dt = 1;
 
     long double current_state = 0.0;
@@ -106,7 +106,7 @@ int main()
             plot(current_state, x);
             x++;
 
-            if ((current_state < (setpoint + EPS) && current_state > (setpoint - EPS)) || x > 30000 * 16)
+            if ((current_state < (setpoint + EPS) && current_state > (setpoint - EPS)) || x > 30000 * 8)
             {
                 not_close_enough = false;
             }
