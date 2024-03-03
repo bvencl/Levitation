@@ -80,9 +80,9 @@ int main()
 
     long double min = -5;
     long double max = 5;
-    long double Kp = 0.0;
-    long double Ki = 0.5;
-    long double Kd = 0.5;
+    long double Kp = 0.3;
+    long double Ki = 0.05;
+    long double Kd = 0.05;
     long double dt = 1;
 
     long double current_state = 0.0;

@@ -1,9 +1,8 @@
 #include "ownpid.h"
 
-PID::PID(double Kp, double Ki, double Kd) : lasttime(0), max(255), min(0), Kp(Kp), Ki(Ki), Kd(Kd), integral(0), prev_error(0){};
+PID::PID(double Kp, double Ki, double Kd) : lasttime(0), max(255), min(-255), Kp(Kp), Ki(Ki), Kd(Kd), integral(0), prev_error(0){};
 
 //------------------------------------------------------------------
-double millis();
 
 void PID::setKp(double Kp)
 {
