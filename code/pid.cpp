@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cmath>
 
 std::ofstream file("plot.svg");
 
@@ -43,6 +44,8 @@ public:
 
         prev_error = error;
 
+        long int output_int = (long int)std::round(output);
+
         return output;
     }
 };
@@ -80,9 +83,9 @@ int main()
 
     long double min = -5;
     long double max = 5;
-    long double Kp = 0.3;
-    long double Ki = 0.05;
-    long double Kd = 0.05;
+    long double Kp = 1.8;
+    long double Ki = 0;
+    long double Kd = 0;
     long double dt = 1;
 
     long double current_state = 0.0;

@@ -1,4 +1,4 @@
-#include "ownpid.h"
+#include "ownpidlib_v3.h"
 #include "Arduino.h"
 #include <cmath>
 
@@ -46,7 +46,7 @@ double PID::getKd()
     return Kd;
 }
 
-double PID::calculate(double setpoint, double current_state)
+long int PID::calculate(double setpoint, double current_state)
 {
     double error = setpoint - current_state; // Error számítás
 
@@ -71,5 +71,7 @@ double PID::calculate(double setpoint, double current_state)
 
     prev_error = error;
 
-    return output;
+    long int output_int = (long int)std::round(output);
+
+    return output_int;
 }
