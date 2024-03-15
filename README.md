@@ -20,7 +20,11 @@
 - [SS495A HONEYWELL](https://www.tme.eu/hu/details/ss495a/hall-erzekelok/honeywell/?brutto=1&currency=HUF&gad_source=1&gclid=CjwKCAiAuYuvBhApEiwAzq_YiSjL0nuqMXYQDb3h_G2cWrwqlgAmIaqFjlyvA_6l86SQjtGmc6TMbRoC2oYQAvD_BwE) ([datasheet1](https://www.tme.eu/Document/d30208f50e1e47c56a95079cd6eb2175/ss495-496.pdf), illetve [datasheet2](https://asset.conrad.com/media10/add/160267/c1/-/en/000505291DS01/adatlap-505291-honeywell-linearis-helyzeterzekelo-45-105vdc-sip-ss495a.pdf))
 - [L298N Dual H-Bridge motor Driver](https://components101.com/modules/l293n-motor-driver-module) ([datasheet](https://components101.com/sites/default/files/component_datasheet/L298N-Motor-Driver-Datasheet.pdf))
 
-
+## SZERSZÁMOK BESZEREZNI
+- [Weller W1010](https://www.conrad.hu/hu/p/digitalis-forrasztoallomas-70-w-100-450-c-weller-professional-we-1010-230v-f-g-1664390.html?gad_source=1&gclid=Cj0KCQjwwMqvBhCtARIsAIXsZpbxNGqjjOripCTmmgcKAkm1pAhxc7DkE_6Hu00mgD-jG0_Y4XRnZkIaAnWbEALw_wcB)
+- [Csavarhúzó készlet]()
+- [Csipesz]()
+- [Multiméter]()
 
 ## FORRÁSOK
 
